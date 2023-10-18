@@ -14,9 +14,8 @@ package frc.robot;
  */
 public final class Constants {
   public static class ElevatorConstants{
-    public static final int ARM_MOTOR_1 = 2491;
-    public static final int ARM_MOTOR_2 = 2491;
-    public static final int P_OF_CONTROLLER = 2491;
+    public static final int ARM_MOTOR_1 = 2;
+    public static final double P_OF_CONTROLLER = 0.5;
 
   }
   public static class OperatorConstants {

@@ -9,6 +9,7 @@ import frc.robot.subsystems.elevator;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.PS4Controller;
 import static  frc.robot.Constants.ElevatorConstants.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
 
@@ -18,23 +19,23 @@ public class ControlElevator extends CommandBase {
   DoubleSupplier leftAxisSupplier;
   DoubleSupplier rightAxisSupplier;
   /** Creates a new ControlElevator. */
-  public ControlElevator(elevator Elevator, DoubleSupplier leftaxSupplier, DoubleSupplier rightaxSupplier) {
+  public ControlElevator(elevator Elevator, DoubleSupplier rightaxSupplier) {
     addRequirements(Elevator);
     this.elevator = Elevator;
-    this.leftAxisSupplier = leftaxSupplier;
     this.rightAxisSupplier = rightaxSupplier;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.setSecondArm(leftAxisSupplier.getAsDouble()*P_OF_CONTROLLER);
-    elevator.setThirdArm(rightAxisSupplier.getAsDouble()*P_OF_CONTROLLER);
+    elevator.setSecondArm(rightAxisSupplier.getAsDouble()*P_OF_CONTROLLER);
+    SmartDashboard.putNumber("joystick rightY", rightAxisSupplier.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
