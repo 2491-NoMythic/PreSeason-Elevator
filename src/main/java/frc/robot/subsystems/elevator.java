@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.CAN;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class elevator extends SubsystemBase {
@@ -22,31 +21,34 @@ public class elevator extends SubsystemBase {
   // CANSparkMax armMotor1;
   // CANSparkMax armMotor2; 
   // CANSparkMax armMotor3;
-  TalonSRX armMotor1;
+  CANSparkMax armMotor1;
+  RelativeEncoder armEncoder;
   
   double maxSpeed;
  
   public elevator(double maxSpeed) {
-    armMotor1 = new TalonSRX(ARM_MOTOR_1);
-    armMotor1.setNeutralMode(NeutralMode.Brake);
-  
+    armMotor1 = new CANSparkMax(ARM_MOTOR_1, MotorType.kBrushless);
+ 
+    armEncoder = armMotor1.getEncoder();
     this.maxSpeed = maxSpeed;
   }
 
   public void setSecondArm(double speed) {
     if(speed>maxSpeed) {speed = maxSpeed;}
-    armMotor1.set(ControlMode.PercentOutput, speed);
+    armMotor1.set(speed);
   }
 
   public void stopSecondArm() {
-    armMotor1.set(ControlMode.Velocity, 0);
+    armMotor1.set(0);
   }
 
 
   public void stopAll() {
     stopSecondArm();
   }
-
+  public double getCurrentPositon(){
+    return armEncoder.getPosition();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
