@@ -10,6 +10,7 @@ import frc.robot.commands.ControlElevator;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.PositionElevator;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -49,8 +50,11 @@ public class RobotContainer {
   
   private void elevatorInst() {
     elevator = new elevator(0.5);
-    ControlElevator defaultElevator = new ControlElevator(elevator, ()-> CoDriveController.getRightY());
-    elevator.setDefaultCommand(defaultElevator);
+    ControlElevator cElevator = new ControlElevator(elevator, ()-> CoDriveController.getRightY());
+    PositionElevator plElevator = new PositionElevator(elevator, -1);
+    PositionElevator pmElevatpr = new PositionElevator(elevator, 0);
+    PositionElevator phElevator = new PositionElevator(elevator, 1);
+    elevator.setDefaultCommand(cElevator);
   }
   void exampleInst() {
     m_ExampleSubsystem = new ExampleSubsystem();
@@ -70,6 +74,8 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_ExampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_ExampleSubsystem));
+    new Trigger (CoDriveController::getCrossButton)
+        .onTrue(PositionElevator(elevator, -1));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
