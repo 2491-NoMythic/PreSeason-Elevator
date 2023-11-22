@@ -16,6 +16,9 @@ public final class Constants {
   public static class ElevatorConstants{
     public static final int ARM_MOTOR_1 = 2;
     public static final double P_OF_CONTROLLER = 0.5;
+    public static final double runningKP = 1;
+    public static final double ENCODER_ROTS_PER_METER = 62.6593; //theres 2(pi) inches per rotation with this elevator
+    public static final double kFF = 0;
 
   }
   public static class OperatorConstants {

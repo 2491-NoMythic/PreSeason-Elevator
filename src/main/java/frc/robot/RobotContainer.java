@@ -10,8 +10,10 @@ import frc.robot.commands.ControlElevator;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.PositionElevator;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -49,8 +51,8 @@ public class RobotContainer {
   
   private void elevatorInst() {
     elevator = new elevator(0.5);
-    ControlElevator defaultElevator = new ControlElevator(elevator, ()-> CoDriveController.getRightY());
-    elevator.setDefaultCommand(defaultElevator);
+    PositionElevator posElevator = new PositionElevator(elevator);
+    elevator.setDefaultCommand(posElevator);
   }
   void exampleInst() {
     m_ExampleSubsystem = new ExampleSubsystem();
@@ -70,6 +72,12 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_ExampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_ExampleSubsystem));
+    new Trigger(CoDriveController::getCrossButton)
+      .onTrue(new InstantCommand(() -> elevator.setDesiredHeight(0)));    
+      new Trigger(CoDriveController::getCircleButton)
+      .onTrue(new InstantCommand(() -> elevator.setDesiredHeight(0.5)));    
+      new Trigger(CoDriveController::getTriangleButton)
+      .onTrue(new InstantCommand(() -> elevator.setDesiredHeight(1)));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
