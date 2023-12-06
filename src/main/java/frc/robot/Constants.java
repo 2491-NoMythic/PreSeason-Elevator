@@ -14,9 +14,9 @@ package frc.robot;
  */
 public final class Constants {
   public static class ElevatorConstants{
-    public static final int ARM_MOTOR_1 = 2;
-    public static final double P_OF_CONTROLLER = 0.5;
-    public static final double runningKP = 1;
+    public static final int ARM_MOTOR_1 = 2; 
+    public static final double P_OF_CONTROLLER = 0.5; //multiplied by joystick value when using joystick to control elevator
+    public static final double runningKP = 1; //multiplied by difference of (current pos) and (target pos) when using buttons to control elevator
     public static final double ENCODER_ROTS_PER_METER = 62.6593; //theres 2(pi) inches per rotation with this elevator
     public static final double kFF = 0; //this is the amount of motor power the arm needs to merely hold the load in place
 
