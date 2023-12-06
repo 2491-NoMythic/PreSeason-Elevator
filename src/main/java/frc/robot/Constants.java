@@ -18,7 +18,7 @@ public final class Constants {
     public static final double P_OF_CONTROLLER = 0.5;
     public static final double runningKP = 1;
     public static final double ENCODER_ROTS_PER_METER = 62.6593; //theres 2(pi) inches per rotation with this elevator
-    public static final double kFF = 0;
+    public static final double kFF = 0; //this is the amount of motor power the arm needs to merely hold the load in place
 
   }
   public static class OperatorConstants {
